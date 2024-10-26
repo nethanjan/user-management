@@ -1,5 +1,3 @@
-// import Image from "next/image";
-
 import DefaultLayout from "@/components/layouts/default-layout";
 
 export default function Users() {

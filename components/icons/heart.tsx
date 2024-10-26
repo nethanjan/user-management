@@ -1,6 +1,6 @@
 export default function Heart({
 	"aria-label": ariaLabel,
-	role,
+	role = "img",
 }: Readonly<{
 	"aria-label"?: string;
 	role?: string;
