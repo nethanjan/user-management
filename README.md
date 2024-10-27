@@ -1,5 +1,11 @@
 ## Getting Started
 
+Create .env file in root directory and add
+
+```bash
+NEXT_PUBLIC_ENV="development"
+```
+
 First, run the development server:
 
 ```bash
