@@ -1,5 +1,6 @@
 import Footer from "../footer/footer";
 import Header from "../header/header";
+import Sidebar from "../side-navigation/side-navigation";
 
 export default function DefaultLayout({
 	children,
@@ -13,10 +14,7 @@ export default function DefaultLayout({
 			{/* Conditionally render left sidebar */}
 			{showSidebar && (
 				<div className="hidden h-full flex-[0.3] lg:flex-[0.2] md:block">
-					<div className="grid h-full place-content-center bg-blue-400">
-						<h1 className="text-xl">Left</h1>
-						<h2 className="text-xl">Sidebar</h2>
-					</div>
+					<Sidebar />
 				</div>
 			)}
 

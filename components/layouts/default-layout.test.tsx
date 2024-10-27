@@ -17,6 +17,13 @@ jest.mock(
 			return <footer>Mocked Footer</footer>;
 		}
 );
+jest.mock(
+	"../side-navigation/side-navigation",
+	() =>
+		function SideNav() {
+			return <aside>Sidebar</aside>;
+		}
+);
 
 describe("DefaultLayout Component", () => {
 	test("renders Header and Footer", () => {
@@ -67,9 +74,7 @@ describe("DefaultLayout Component", () => {
 		);
 
 		// Check if the sidebar is rendered when showSidebar is true
-		const sidebarHeading = screen.getByText("Left");
 		const sidebarSubheading = screen.getByText("Sidebar");
-		expect(sidebarHeading).toBeInTheDocument();
 		expect(sidebarSubheading).toBeInTheDocument();
 	});
 });

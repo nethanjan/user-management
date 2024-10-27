@@ -1,4 +1,5 @@
 import { User } from "@/types/user";
+import Link from "next/link";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -56,7 +57,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 	};
 
 	return (
-		<>
+		<div>
 			<table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
 				<thead className="bg-gray-100">
 					<tr>
@@ -80,9 +81,15 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 				<tbody>
 					{currentUsers.map((user) => (
 						<tr key={user.id} className="border-b text-black">
-							<td className="py-2 px-4">{user.id}</td>
-							<td className="py-2 px-4">{user.name}</td>
-							<td className="py-2 px-4">{user.email}</td>
+							<td className="py-2 px-4">
+								<Link href={`/users/edit/${user.id}`}>{user.id}</Link>
+							</td>
+							<td className="py-2 px-4">
+								<Link href={`/users/edit/${user.id}`}>{user.name}</Link>
+							</td>
+							<td className="py-2 px-4">
+								<Link href={`/users/edit/${user.id}`}>{user.email}</Link>
+							</td>
 						</tr>
 					))}
 				</tbody>
@@ -104,7 +111,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 				activeClassName={"bg-blue-500 text-white"}
 				disabledClassName={"text-gray-400 cursor-not-allowed"}
 			/>
-		</>
+		</div>
 	);
 };
 

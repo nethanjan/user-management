@@ -1,10 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import DefaultLayout from "@/components/layouts/default-layout";
 import UsersTable from "@/features/users/table";
 import { useUsers } from "@/hooks/use-users";
 import { makeServer } from "@/utils/mirage-server";
 import { useState } from "react";
+import AddIcon from "@/components/icons/add";
 
 if (process.env.NEXT_PUBLIC_ENV === "development") {
 	makeServer();
@@ -14,6 +16,8 @@ export default function Users() {
 	const { users, loading, error } = useUsers();
 	const [filterName, setFilterName] = useState("");
 	const [filterEmail, setFilterEmail] = useState("");
+
+	const router = useRouter();
 
 	if (loading) {
 		return (
@@ -71,20 +75,12 @@ export default function Users() {
 					/>
 					<button
 						type="button"
-						onClick={() => alert("Add user clicked")}
+						onClick={() => router.push("/users/add")}
 						className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
 					>
 						<span className="hidden lg:inline">Add User</span>
 						<span className="inline lg:hidden">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								width="24px"
-								height="24px"
-							>
-								<path d="M19 11H13V5C13 4.45 12.55 4 12 4C11.45 4 11 4.45 11 5V11H5C4.45 11 4 11.45 4 12C4 12.55 4.45 13 5 13H11V19C11 19.55 11.45 20 12 20C12.55 20 13 19.55 13 19V13H19C19.55 13 20 12.55 20 12C20 11.45 19.55 11 19 11Z" />
-							</svg>
+							<AddIcon />
 						</span>
 					</button>
 				</div>

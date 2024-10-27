@@ -3,6 +3,11 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Users from "./page";
 import { useUsers } from "@/hooks/use-users";
+import { useRouter } from "next/navigation";
+
+jest.mock("next/navigation", () => ({
+	useRouter: jest.fn(),
+}));
 
 jest.mock("@/hooks/use-users");
 
@@ -40,6 +45,12 @@ jest.mock(
 );
 
 describe("Users page", () => {
+	const mockPush = jest.fn();
+
+	beforeEach(() => {
+		(useRouter as jest.Mock).mockReturnValue({ push: mockPush }); // Mock the useRouter hook
+	});
+
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
@@ -129,9 +140,7 @@ describe("Users page", () => {
 		expect(screen.queryByText("Charlie")).not.toBeInTheDocument();
 	});
 
-	test("renders add user button and triggers alert", () => {
-		const alertMock = jest.spyOn(window, "alert").mockImplementation();
-
+	test("navigates to add user page on button click", () => {
 		(useUsers as jest.Mock).mockReturnValue({
 			users: [],
 			loading: false,
@@ -140,13 +149,11 @@ describe("Users page", () => {
 
 		render(<Users />);
 
-		// Click the Add User button
-		const addButton = screen.getByRole("button", { name: /Add User/i });
-		fireEvent.click(addButton);
+		// Find the "Add User" button and click it
+		const addUserButton = screen.getByRole("button", { name: /add user/i });
+		fireEvent.click(addUserButton);
 
-		// Verify alert was called
-		expect(alertMock).toHaveBeenCalledWith("Add user clicked");
-
-		alertMock.mockRestore();
+		// Check if router.push was called with "/users/add"
+		expect(mockPush).toHaveBeenCalledWith("/users/add");
 	});
 });
