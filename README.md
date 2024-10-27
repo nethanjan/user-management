@@ -11,7 +11,7 @@ First, run the development server:
 ```bash
 npm install
 # or
-yarn intall
+yarn install
 # or
 pnpm install
 ```
@@ -43,8 +43,8 @@ yarn test
 - top navigation on mobile
 - host the application Cloudfalre / Vercel
 
-Improvemnts
+Improvements
 
-- Code refatoring
+- Code refactoring
 - Optimisations
 - Enforce code quality checks
