@@ -3,6 +3,10 @@ import Footer from "./footer"; // Adjust the import based on the correct path of
 import "@testing-library/jest-dom";
 
 describe("Footer Component", () => {
+	afterEach(() => {
+		jest.clearAllMocks();
+	});
+
 	test("renders the footer element with correct role", () => {
 		render(<Footer />);
 

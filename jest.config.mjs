@@ -24,6 +24,7 @@ const config = {
 		"!<rootDir>/.next/**",
 		"!<rootDir>/*.config.js",
 		"!<rootDir>/coverage/**",
+		"!**/utils/**",
 	],
 	coverageThreshold: {
 		global: {
