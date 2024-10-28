@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
+import styles from "./pagination.module.css";
+
 interface UsersTableProps {
 	usersData: User[];
 }
@@ -58,8 +60,8 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 
 	return (
 		<div>
-			<table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-				<thead className="bg-gray-100">
+			<table className="min-w-full w-full bg-white shadow-md rounded-lg overflow-hidden">
+				<thead className="bg-gray-100 text-black">
 					<tr>
 						<th className="text-left py-2 px-4 font-medium text-gray-600">
 							ID
@@ -95,22 +97,23 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 				</tbody>
 			</table>
 
-			{/* Pagination */}
-			<ReactPaginate
-				previousLabel={"Previous"}
-				nextLabel={"Next"}
-				breakLabel={"..."}
-				pageCount={pageCount}
-				marginPagesDisplayed={2}
-				pageRangeDisplayed={3}
-				onPageChange={handlePageClick}
-				containerClassName={"flex justify-center items-center mt-6"}
-				pageClassName={"mx-2 px-3 py-1 rounded-md border border-gray-300"}
-				previousClassName={"mx-2 px-3 py-1 rounded-md border border-gray-300"}
-				nextClassName={"mx-2 px-3 py-1 rounded-md border border-gray-300"}
-				activeClassName={"bg-blue-500 text-white"}
-				disabledClassName={"text-gray-400 cursor-not-allowed"}
-			/>
+			<div className="w-full mt-4 flex justify-center">
+				<ReactPaginate
+					previousLabel={"Previous"}
+					nextLabel={"Next"}
+					breakLabel={"..."}
+					pageCount={pageCount}
+					marginPagesDisplayed={2}
+					pageRangeDisplayed={3}
+					onPageChange={handlePageClick}
+					containerClassName={styles.paginationContainer}
+					pageClassName={styles.pageItem}
+					previousClassName={styles.previousItem}
+					nextClassName={styles.nextItem}
+					activeClassName={styles.activePage}
+					disabledClassName={styles.disabledPage}
+				/>
+			</div>
 		</div>
 	);
 };
