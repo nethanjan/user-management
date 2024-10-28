@@ -2,14 +2,18 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Users from "./page";
-import { useUsers } from "@/hooks/use-users";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/store/hook";
 
 jest.mock("next/navigation", () => ({
 	useRouter: jest.fn(),
 }));
 
-jest.mock("@/hooks/use-users");
+jest.mock("@/hooks/use-fetch-users");
+
+jest.mock("@/store/hook", () => ({
+	useAppSelector: jest.fn(),
+}));
 
 jest.mock(
 	"@/components/layouts/default-layout",
@@ -48,7 +52,7 @@ describe("Users page", () => {
 	const mockPush = jest.fn();
 
 	beforeEach(() => {
-		(useRouter as jest.Mock).mockReturnValue({ push: mockPush }); // Mock the useRouter hook
+		(useRouter as jest.Mock).mockReturnValue({ push: mockPush });
 	});
 
 	afterEach(() => {
@@ -56,7 +60,7 @@ describe("Users page", () => {
 	});
 
 	test("renders loading state initially", () => {
-		(useUsers as jest.Mock).mockReturnValue({
+		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: true,
 			error: null,
@@ -70,7 +74,7 @@ describe("Users page", () => {
 	});
 
 	test("renders error state", () => {
-		(useUsers as jest.Mock).mockReturnValue({
+		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: false,
 			error: "Failed to fetch users",
@@ -83,7 +87,7 @@ describe("Users page", () => {
 	});
 
 	test("renders filtered users", () => {
-		(useUsers as jest.Mock).mockReturnValue({
+		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [
 				{ id: "1", name: "Alice", email: "alice@example.com" },
 				{ id: "2", name: "Bob", email: "bob@example.com" },
@@ -113,7 +117,7 @@ describe("Users page", () => {
 	});
 
 	test("renders filtered users", () => {
-		(useUsers as jest.Mock).mockReturnValue({
+		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [
 				{ id: "1", name: "Alice", email: "alice@example.com" },
 				{ id: "2", name: "Bob", email: "bob@example.com" },
@@ -141,7 +145,7 @@ describe("Users page", () => {
 	});
 
 	test("navigates to add user page on button click", () => {
-		(useUsers as jest.Mock).mockReturnValue({
+		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: false,
 			error: null,

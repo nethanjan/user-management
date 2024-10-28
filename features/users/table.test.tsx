@@ -5,9 +5,30 @@ import { User } from "@/types/user";
 import "@testing-library/jest-dom";
 
 const usersData: User[] = [
-	{ id: "1", name: "Alice", email: "alice@example.com" },
-	{ id: "2", name: "Bob", email: "bob@example.com" },
-	{ id: "3", name: "Charlie", email: "charlie@example.com" },
+	{
+		id: "1",
+		name: "Alice",
+		age: 25,
+		email: "alice@example.com",
+		country: "USA",
+		department: "Engineering",
+	},
+	{
+		id: "2",
+		name: "Bob",
+		age: 30,
+		email: "bob@example.com",
+		country: "Canada",
+		department: "Marketing",
+	},
+	{
+		id: "3",
+		name: "Charlie",
+		age: 35,
+		email: "charlie@example.com",
+		country: "UK",
+		department: "Sales",
+	},
 ];
 
 jest.mock(
@@ -70,7 +91,10 @@ describe("UsersTable", () => {
 			(_, i) => ({
 				id: `${i + 1}`,
 				name: `User${i + 1}`,
+				age: 25,
 				email: `user${i + 1}@example.com`,
+				country: "USA",
+				department: "Engineering",
 			})
 		);
 

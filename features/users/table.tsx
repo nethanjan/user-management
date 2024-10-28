@@ -78,6 +78,9 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 						>
 							Email {getSortIndicator("email")}
 						</th>
+						<th className="text-left py-2 px-4 font-medium text-gray-600 cursor-pointer">
+							Country
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -92,6 +95,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 							<td className="py-2 px-4">
 								<Link href={`/users/edit/${user.id}`}>{user.email}</Link>
 							</td>
+							<td className="py-2 px-4">{user.country}</td>
 						</tr>
 					))}
 				</tbody>

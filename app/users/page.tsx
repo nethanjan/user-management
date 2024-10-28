@@ -3,19 +3,25 @@
 import { useRouter } from "next/navigation";
 import DefaultLayout from "@/components/layouts/default-layout";
 import UsersTable from "@/features/users/table";
-import { useUsers } from "@/hooks/use-users";
+import { useUsers } from "@/hooks/use-fetch-users";
 import { makeServer } from "@/utils/mirage-server";
 import { useState } from "react";
 import AddIcon from "@/components/icons/add";
+import { useAppSelector } from "@/store/hook";
+import { RootState } from "@/store/store";
 
 if (process.env.NEXT_PUBLIC_ENV === "development") {
 	makeServer();
 }
 
 export default function Users() {
-	const { users, loading, error } = useUsers();
+	useUsers();
 	const [filterName, setFilterName] = useState("");
 	const [filterEmail, setFilterEmail] = useState("");
+
+	const { users, loading, error } = useAppSelector(
+		(state: RootState) => state.users
+	);
 
 	const router = useRouter();
 

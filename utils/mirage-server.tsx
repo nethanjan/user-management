@@ -13,8 +13,22 @@ const UserFactory = Factory.extend({
 	name() {
 		return faker.person.fullName();
 	},
+	age() {
+		return faker.number.int({ min: 18, max: 80 });
+	},
 	email(this: { name: string }) {
 		return this.name.toLowerCase().replace(/\s/g, ".") + "@example.com";
+	},
+	country() {
+		return faker.location.country();
+	},
+	department() {
+		return faker.helpers.arrayElement([
+			"Engineering",
+			"Marketing",
+			"Sales",
+			"HR",
+		]);
 	},
 });
 
