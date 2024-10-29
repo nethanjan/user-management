@@ -1,17 +1,18 @@
 // Heart.test.js
 import { render, screen } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 import Heart from "./heart"; // Adjust the import based on the correct path of your component
 
 describe("Heart Component", () => {
-	test("renders with default properties when no props are provided", () => {
+	it("renders with default properties when no props are provided", () => {
 		render(<Heart />);
 
 		const svgElement = screen.getByRole("img");
 		expect(svgElement).toBeInTheDocument();
 	});
 
-	test("applies the correct aria-label when provided", () => {
+	it("applies the correct aria-label when provided", () => {
 		const ariaLabel = "Heart Icon";
 		render(<Heart aria-label={ariaLabel} />);
 
@@ -19,7 +20,7 @@ describe("Heart Component", () => {
 		expect(svgElement).toBeInTheDocument();
 	});
 
-	test("applies the correct role when provided", () => {
+	it("applies the correct role when provided", () => {
 		const role = "img";
 		render(<Heart role={role} />);
 
@@ -27,7 +28,7 @@ describe("Heart Component", () => {
 		expect(svgElement).toBeInTheDocument();
 	});
 
-	test("uses both role and aria-label correctly", () => {
+	it("uses both role and aria-label correctly", () => {
 		const ariaLabel = "Favorite Icon";
 		const role = "img";
 		render(<Heart aria-label={ariaLabel} role={role} />);

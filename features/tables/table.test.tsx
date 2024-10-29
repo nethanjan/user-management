@@ -48,7 +48,7 @@ jest.mock(
 );
 
 describe("UsersTable", () => {
-	test("renders table with user data", () => {
+	it("renders table with user data", () => {
 		render(<UsersTable usersData={usersData} />);
 
 		// Verify that the users are displayed
@@ -57,7 +57,7 @@ describe("UsersTable", () => {
 		expect(screen.getByText("Charlie")).toBeInTheDocument();
 	});
 
-	test("sorts users by name in ascending order", () => {
+	it("sorts users by name in ascending order", () => {
 		render(<UsersTable usersData={usersData} />);
 
 		const nameHeader = screen.getByText("Name");
@@ -69,7 +69,7 @@ describe("UsersTable", () => {
 		expect(rows[3]).toHaveTextContent("Charlie");
 	});
 
-	test("sorts users by email in descending order", () => {
+	it("sorts users by email in descending order", () => {
 		render(<UsersTable usersData={usersData} />);
 
 		// Click on the Email header twice to sort by email in descending order
@@ -84,7 +84,7 @@ describe("UsersTable", () => {
 		expect(rows[3]).toHaveTextContent("alice@example.com");
 	});
 
-	test("paginates correctly", () => {
+	it("paginates correctly", () => {
 		// For this test, you might want to mock more than 10 users
 		const usersDataWithMoreEntries: User[] = Array.from(
 			{ length: 20 },

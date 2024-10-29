@@ -5,8 +5,10 @@ import {
 	waitFor,
 	act,
 } from "@testing-library/react";
-import AddUser from "./page";
+
 import { useCreateUser } from "@/hooks/use-create-user";
+
+import AddUser from "./page";
 
 import "@testing-library/jest-dom";
 
@@ -32,7 +34,6 @@ describe("AddUser component", () => {
 	it("renders the form correctly", () => {
 		render(<AddUser />);
 
-		// Check that the form elements are rendered
 		expect(screen.getByLabelText(/name/i)).toBeInTheDocument();
 		expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
 		expect(
@@ -49,10 +50,9 @@ describe("AddUser component", () => {
 
 		render(<AddUser />);
 
-		// Check that the button is disabled and shows "Adding..." text
-		const button = screen.getByRole("button", { name: /adding/i });
+		const button = screen.getByRole("button", { name: /processing.../i });
 		expect(button).toBeDisabled();
-		expect(button).toHaveTextContent("Adding...");
+		expect(button).toHaveTextContent("Processing...");
 	});
 
 	it("displays success message after user is added", async () => {
@@ -71,7 +71,9 @@ describe("AddUser component", () => {
 			target: { value: "john@example.com" },
 		});
 
-		fireEvent.submit(screen.getByRole("button", { name: /add user/i }));
+		await act(async () => {
+			fireEvent.submit(screen.getByRole("button", { name: /add user/i }));
+		});
 
 		await waitFor(() =>
 			expect(screen.getByText(/user added successfully/i)).toBeInTheDocument()
@@ -110,12 +112,10 @@ describe("AddUser component", () => {
 	it("prevents form submission if inputs are empty", () => {
 		render(<AddUser />);
 
-		// Submit the form without entering data
 		act(() => {
 			fireEvent.submit(screen.getByRole("button", { name: /add user/i }));
 		});
 
-		// The createUser function should not be called if the form is incomplete
 		expect(mockCreateUser).not.toHaveBeenCalled();
 	});
 });

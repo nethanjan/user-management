@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 import DefaultLayout from "./default-layout"; // Adjust the path as necessary
 
@@ -18,7 +19,7 @@ jest.mock(
 		}
 );
 jest.mock(
-	"../side-navigation/side-navigation",
+	"../navigation/side-navigation",
 	() =>
 		function SideNav() {
 			return <aside>Sidebar</aside>;
@@ -26,7 +27,7 @@ jest.mock(
 );
 
 describe("DefaultLayout Component", () => {
-	test("renders Header and Footer", () => {
+	it("renders Header and Footer", () => {
 		render(
 			<DefaultLayout showSidebar={false}>
 				<p>Test content</p>
@@ -42,7 +43,7 @@ describe("DefaultLayout Component", () => {
 		expect(footerElement).toBeInTheDocument();
 	});
 
-	test("renders children inside the main element", () => {
+	it("renders children inside the main element", () => {
 		render(
 			<DefaultLayout showSidebar={false}>
 				<p>Test content</p>
@@ -54,7 +55,7 @@ describe("DefaultLayout Component", () => {
 		expect(childrenContent).toBeInTheDocument();
 	});
 
-	test("does not render the sidebar when showSidebar is false", () => {
+	it("does not render the sidebar when showSidebar is false", () => {
 		render(
 			<DefaultLayout showSidebar={false}>
 				<p>Test content</p>
@@ -66,7 +67,7 @@ describe("DefaultLayout Component", () => {
 		expect(sidebarHeading).not.toBeInTheDocument();
 	});
 
-	test("renders the sidebar when showSidebar is true", () => {
+	it("renders the sidebar when showSidebar is true", () => {
 		render(
 			<DefaultLayout showSidebar={true}>
 				<p>Test content</p>

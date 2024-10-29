@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Sidebar from "./side-navigation";
 import { usePathname } from "next/navigation";
+
+import Sidebar from "./side-navigation";
 
 import "@testing-library/jest-dom";
 
@@ -66,6 +67,39 @@ describe("Sidebar component", () => {
 		render(<Sidebar />);
 
 		const analyticsLink = screen.getByText(/analytics/i);
+
+		// Check if the Analytics link is active (highlighted)
+		expect(analyticsLink).toHaveClass("bg-blue-500");
+	});
+
+	it('highlights the Analytics link when the pathname is "/analytics/bar-chart"', () => {
+		mockUsePathname.mockReturnValue("/analytics/bar-chart"); // Set the pathname to "/analytics"
+
+		render(<Sidebar />);
+
+		const analyticsLink = screen.getByText(/bar chart/i);
+
+		// Check if the Analytics link is active (highlighted)
+		expect(analyticsLink).toHaveClass("bg-blue-500");
+	});
+
+	it('highlights the Analytics link when the pathname is "/analytics/pie-chart"', () => {
+		mockUsePathname.mockReturnValue("/analytics/pie-chart"); // Set the pathname to "/analytics"
+
+		render(<Sidebar />);
+
+		const analyticsLink = screen.getByText(/pie chart/i);
+
+		// Check if the Analytics link is active (highlighted)
+		expect(analyticsLink).toHaveClass("bg-blue-500");
+	});
+
+	it('highlights the Analytics link when the pathname is "/analytics/geo-chart"', () => {
+		mockUsePathname.mockReturnValue("/analytics/geo-chart"); // Set the pathname to "/analytics"
+
+		render(<Sidebar />);
+
+		const analyticsLink = screen.getByText(/geo chart/i);
 
 		// Check if the Analytics link is active (highlighted)
 		expect(analyticsLink).toHaveClass("bg-blue-500");

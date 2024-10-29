@@ -1,8 +1,10 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import EditUser from "./page";
+import { useRouter } from "next/navigation";
+
 import { useFetchUser } from "@/hooks/use-fetch-user";
 import { useUpdateUser } from "@/hooks/use-update-user";
-import { useRouter } from "next/navigation";
+
+import EditUser from "./page";
 
 import "@testing-library/jest-dom";
 
@@ -45,14 +47,14 @@ describe("EditUser component", () => {
 		jest.clearAllMocks();
 	});
 
-	test("renders the EditUser form with user data", () => {
+	it("renders the EditUser form with user data", () => {
 		render(<EditUser />);
 
 		expect(screen.getByLabelText(/name/i)).toHaveValue("John Doe");
 		expect(screen.getByLabelText(/email/i)).toHaveValue("john@example.com");
 	});
 
-	test("displays loading spinner when data is being fetched", () => {
+	it("displays loading spinner when data is being fetched", () => {
 		(useFetchUser as jest.Mock).mockReturnValue({
 			user: null,
 			loading: true,
@@ -65,7 +67,7 @@ describe("EditUser component", () => {
 		expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
 	});
 
-	test("shows error message when user fetching fails", () => {
+	it("shows error message when user fetching fails", () => {
 		(useFetchUser as jest.Mock).mockReturnValue({
 			user: null,
 			loading: false,

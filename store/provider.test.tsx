@@ -6,7 +6,7 @@ import ReduxProvider from "./provider";
 import "@testing-library/jest-dom";
 
 describe("ReduxProvider", () => {
-	test("renders children with Redux store provider", () => {
+	it("renders children with Redux store provider", () => {
 		const { getByText } = render(
 			<ReduxProvider>
 				<div>Test Child Component</div>

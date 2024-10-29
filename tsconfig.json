@@ -27,7 +27,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		".next/types/**/*.ts",
-		"next.config.js"
+		"next.config.js",
+		"utils/mirage-server.test-refine"
 	],
 	"exclude": ["node_modules"]
 }

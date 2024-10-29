@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from "@testing-library/react";
+
 import { useFetchUser } from "@/hooks/use-fetch-user";
 
 global.fetch = jest.fn();

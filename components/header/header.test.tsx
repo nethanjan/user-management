@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 import Header from "./header";
 
 describe("Header Component", () => {
-	test("renders the header element", () => {
+	it("renders the header element", () => {
 		render(<Header />);
 
 		// Check if the header element is present
@@ -11,7 +12,7 @@ describe("Header Component", () => {
 		expect(headerElement).toBeInTheDocument();
 	});
 
-	test("renders the Heart icon with correct aria-label and role", () => {
+	it("renders the Heart icon with correct aria-label and role", () => {
 		render(<Header />);
 
 		// Check if the Heart icon is rendered with the correct aria-label and role
@@ -19,7 +20,7 @@ describe("Header Component", () => {
 		expect(heartIcon).toBeInTheDocument();
 	});
 
-	test('renders the site title "Heartpace" as a heading', () => {
+	it('renders the site title "Heartpace" as a heading', () => {
 		render(<Header />);
 
 		// Check if the heading with text "Heartpace" is present
@@ -28,7 +29,7 @@ describe("Header Component", () => {
 		expect(headingElement).toHaveTextContent("Heartpace");
 	});
 
-	test('renders the Link component that navigates to the homepage ("/")', () => {
+	it('renders the Link component that navigates to the homepage ("/")', () => {
 		render(<Header />);
 
 		// Check if the Link component has the correct href

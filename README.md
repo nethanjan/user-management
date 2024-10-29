@@ -38,13 +38,4 @@ yarn test
 
 ### ToDo
 
-- map api data to redux
-- graphical data representation
-- top navigation on mobile
-- host the application Cloudfalre / Vercel
-
-Improvements
-
-- Code refactoring
-- Optimisations
-- Enforce code quality checks
+host the application Cloudfalre / Vercel

@@ -1,5 +1,6 @@
 // Home.test.js
 import { render, screen } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 import Home from "./page";
 
@@ -23,7 +24,7 @@ jest.mock(
 );
 
 describe("Home Component", () => {
-	test("renders without crashing", () => {
+	it("renders without crashing", () => {
 		render(<Home />);
 
 		// Check if the layout is rendered
@@ -31,7 +32,7 @@ describe("Home Component", () => {
 		expect(layoutElement).toBeInTheDocument();
 	});
 
-	test('renders the "Go to Users" link with correct href', () => {
+	it('renders the "Go to Users" link with correct href', () => {
 		render(<Home />);
 
 		// Find the link with text "Go to Users" and check its href
@@ -40,7 +41,7 @@ describe("Home Component", () => {
 		expect(usersLink).toHaveAttribute("href", "/users");
 	});
 
-	test('renders the "Go to Analytics" link with correct href', () => {
+	it('renders the "Go to Analytics" link with correct href', () => {
 		render(<Home />);
 
 		// Find the link with text "Go to Analytics" and check its href
@@ -51,7 +52,7 @@ describe("Home Component", () => {
 		expect(analyticsLink).toHaveAttribute("href", "/analytics");
 	});
 
-	test("renders links with the correct styles", () => {
+	it("renders links with the correct styles", () => {
 		render(<Home />);
 
 		// Check if the "Go to Users" link has the correct class names

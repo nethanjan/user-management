@@ -1,7 +1,8 @@
-import { User } from "@/types/user";
 import Link from "next/link";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
+
+import { User } from "@/types/user";
 
 import styles from "./pagination.module.css";
 
@@ -9,6 +10,8 @@ interface UsersTableProps {
 	usersData: User[];
 }
 
+// To fix the eslint error, add the prop types for the UsersTable component
+// eslint-disable-next-line react/prop-types
 const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [sortConfig, setSortConfig] = useState<{

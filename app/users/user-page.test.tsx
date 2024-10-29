@@ -1,9 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import Users from "./page";
 import { useRouter } from "next/navigation";
+
 import { useAppSelector } from "@/store/hook";
+
+import Users from "./page";
+
+import "@testing-library/jest-dom";
 
 jest.mock("next/navigation", () => ({
 	useRouter: jest.fn(),
@@ -35,7 +38,7 @@ jest.mock(
 );
 
 jest.mock(
-	"@/features/users/table",
+	"@/features/tables/table",
 	() =>
 		function UsersTable({ usersData }: any) {
 			return (
@@ -59,7 +62,7 @@ describe("Users page", () => {
 		jest.clearAllMocks();
 	});
 
-	test("renders loading state initially", () => {
+	it("renders loading state initially", () => {
 		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: true,
@@ -73,7 +76,7 @@ describe("Users page", () => {
 		expect(spinner).toBeInTheDocument();
 	});
 
-	test("renders error state", () => {
+	it("renders error state", () => {
 		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: false,
@@ -86,7 +89,7 @@ describe("Users page", () => {
 		expect(screen.getByText("Failed to fetch users")).toBeInTheDocument();
 	});
 
-	test("renders filtered users", () => {
+	it("renders filtered users", () => {
 		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [
 				{ id: "1", name: "Alice", email: "alice@example.com" },
@@ -116,7 +119,7 @@ describe("Users page", () => {
 		expect(screen.queryByText("Charlie")).not.toBeInTheDocument();
 	});
 
-	test("renders filtered users", () => {
+	it("renders filtered users", () => {
 		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [
 				{ id: "1", name: "Alice", email: "alice@example.com" },
@@ -144,7 +147,7 @@ describe("Users page", () => {
 		expect(screen.queryByText("Charlie")).not.toBeInTheDocument();
 	});
 
-	test("navigates to add user page on button click", () => {
+	it("navigates to add user page on button click", () => {
 		(useAppSelector as unknown as jest.Mock).mockReturnValue({
 			users: [],
 			loading: false,

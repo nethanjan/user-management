@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+
 import "@testing-library/jest-dom";
 import RootLayout, { metadata } from "./layout";
 
@@ -8,7 +9,7 @@ describe("RootLayout Component", () => {
 	 * which is not possible to test in jest & react testing library
 	 */
 
-	// test("should render the html and body elements with correct attributes", () => {
+	// it("should render the html and body elements with correct attributes", () => {
 	// 	render(
 	// 		<RootLayout>
 	// 			<p>Test Content</p>
@@ -26,7 +27,7 @@ describe("RootLayout Component", () => {
 	// 	expect(bodyElement).toHaveClass("--font-geist-mono");
 	// });
 
-	test("should render children correctly", () => {
+	it("should render children correctly", () => {
 		render(
 			<RootLayout>
 				<p>Test Content</p>
@@ -38,7 +39,7 @@ describe("RootLayout Component", () => {
 		expect(childrenContent).toBeInTheDocument();
 	});
 
-	test("metadata object should be defined correctly", () => {
+	it("metadata object should be defined correctly", () => {
 		// Verify the metadata values are correct
 		expect(metadata).toEqual({
 			title: "Create Next App",

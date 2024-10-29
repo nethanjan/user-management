@@ -20,7 +20,7 @@ describe("useUsers", () => {
 		jest.clearAllMocks();
 	});
 
-	test("should dispatch with loading true, empty users, and no error on initial load", async () => {
+	it("should dispatch with loading true, empty users, and no error on initial load", async () => {
 		(fetch as jest.Mock).mockResolvedValueOnce({
 			json: async () => ({ users: [] }),
 		});
@@ -38,7 +38,7 @@ describe("useUsers", () => {
 		});
 	});
 
-	test("should handle fetch error and dispatch error message", async () => {
+	it("should handle fetch error and dispatch error message", async () => {
 		(fetch as jest.Mock).mockRejectedValueOnce(new Error("API error"));
 
 		renderHook(() => useUsers());

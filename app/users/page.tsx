@@ -1,56 +1,34 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import DefaultLayout from "@/components/layouts/default-layout";
-import UsersTable from "@/features/users/table";
-import { useUsers } from "@/hooks/use-fetch-users";
-import { makeServer } from "@/utils/mirage-server";
 import { useState } from "react";
+
 import AddIcon from "@/components/icons/add";
+import DefaultLayout from "@/components/layouts/default-layout";
+import ErrorView from "@/features/intermediate-views/error-view";
+import LoadingView from "@/features/intermediate-views/loading-view";
+import UsersTable from "@/features/tables/table";
+import { useUsers } from "@/hooks/use-fetch-users";
 import { useAppSelector } from "@/store/hook";
 import { RootState } from "@/store/store";
+import { makeServer } from "@/utils/mirage-server";
 
 if (process.env.NEXT_PUBLIC_ENV === "development") {
 	makeServer();
 }
 
 export default function Users() {
-	useUsers();
 	const [filterName, setFilterName] = useState("");
 	const [filterEmail, setFilterEmail] = useState("");
+	const router = useRouter();
+	useUsers();
 
 	const { users, loading, error } = useAppSelector(
 		(state: RootState) => state.users
 	);
 
-	const router = useRouter();
-
-	if (loading) {
-		return (
-			<DefaultLayout showSidebar={true}>
-				<div className="container mx-auto py-6">
-					<div className="flex justify-center items-center py-10">
-						<div
-							data-testid="loading-spinner"
-							className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"
-						></div>
-					</div>
-				</div>
-			</DefaultLayout>
-		);
-	}
-
-	if (error) {
-		return (
-			<DefaultLayout showSidebar={true}>
-				<div className="container mx-auto py-6">
-					<div className="flex justify-center items-center py-10">
-						<p className="text-red-500">{error}</p>
-					</div>
-				</div>
-			</DefaultLayout>
-		);
-	}
+	if (loading) return <LoadingView />;
+	if (error) return <ErrorView errorMessage={error} />;
 
 	const filteredUsers = users
 		.filter((user) =>
@@ -59,6 +37,8 @@ export default function Users() {
 		.filter((user) =>
 			user.email.toLowerCase().includes(filterEmail.toLowerCase())
 		);
+
+	const handleAddUser = () => router.push("/users/add");
 
 	return (
 		<DefaultLayout showSidebar={true}>
@@ -81,7 +61,7 @@ export default function Users() {
 					/>
 					<button
 						type="button"
-						onClick={() => router.push("/users/add")}
+						onClick={handleAddUser}
 						className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg"
 					>
 						<span className="hidden lg:inline">Add User</span>
@@ -90,6 +70,7 @@ export default function Users() {
 						</span>
 					</button>
 				</div>
+
 				<UsersTable usersData={filteredUsers} />
 			</div>
 		</DefaultLayout>
