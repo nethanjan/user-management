@@ -36,7 +36,10 @@ export default function UserForm({
 	};
 
 	return (
-		<form onSubmit={handleSubmit} className="max-w-md mx-auto">
+		<form
+			onSubmit={handleSubmit}
+			className="w-full md:w-1/2 max-w-full mx-auto px-4"
+		>
 			<div className="mb-4">
 				<label className="block mb-2" htmlFor="name">
 					Name

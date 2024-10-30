@@ -22,7 +22,7 @@ export default function AddUser() {
 
 	return (
 		<DefaultLayout showSidebar={true}>
-			<div className="container mx-auto py-6">
+			<div className="container max-w-screen-md mx-auto px-4 sm:px-6 py-6">
 				<h1 className="text-2xl font-bold mb-4">Add New User</h1>
 
 				<UserForm
