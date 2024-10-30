@@ -3,7 +3,7 @@ import { Group } from "@visx/group";
 import { scaleBand, scaleLinear } from "@visx/scale";
 import { Bar } from "@visx/shape";
 import { Tooltip, useTooltip, defaultStyles } from "@visx/tooltip";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import useResizeObserver from "@/hooks/use-resize-observer";
 import { UserDataProps } from "@/types/user";
@@ -15,11 +15,30 @@ interface DataPoint {
 
 const margin = { top: 40, right: 30, bottom: 50, left: 40 };
 
-const isDarkMode = () => document.documentElement.classList.contains("dark");
+// const isDarkMode = () => document.documentElement.classList.contains("dark");
 
 const BarChart = ({ users }: UserDataProps) => {
 	const { refCallback, width } = useResizeObserver<HTMLDivElement>();
 	const chartHeight = 400;
+
+	const [isDarkMode, setIsDarkMode] = useState(false);
+
+	// Effect to track dark mode changes
+	useEffect(() => {
+		// Function to check system dark mode preference
+		const checkDarkMode = () =>
+			setIsDarkMode(window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+		// Initial check
+		checkDarkMode();
+
+		// Listener for changes in system dark mode preference
+		const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+		mediaQuery.addEventListener("change", checkDarkMode);
+
+		// Cleanup listener on component unmount
+		return () => mediaQuery.removeEventListener("change", checkDarkMode);
+	}, []);
 
 	// Prepare age data: count occurrences of each age
 	const ageCounts = users.reduce((acc: Record<number, number>, user) => {
@@ -93,7 +112,7 @@ const BarChart = ({ users }: UserDataProps) => {
 						scale={xScale}
 						tickFormat={(value) => `Age ${value}`}
 						tickLabelProps={() => ({
-							fill: isDarkMode() ? "#000" : "#fff",
+							fill: isDarkMode ? "#fff" : "#000",
 							fontSize: 10,
 							textAnchor: "middle",
 						})}
@@ -101,7 +120,7 @@ const BarChart = ({ users }: UserDataProps) => {
 					<AxisLeft
 						scale={yScale}
 						tickLabelProps={() => ({
-							fill: isDarkMode() ? "#000" : "#fff",
+							fill: isDarkMode ? "#fff" : "#000",
 							fontSize: 10,
 							textAnchor: "end",
 							dx: "-0.25em",
